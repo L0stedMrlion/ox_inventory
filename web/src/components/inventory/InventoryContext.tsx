@@ -22,6 +22,7 @@ interface Button {
   label: string;
   index: number;
   group?: string;
+  icon?: string;
 }
 
 interface Group {
@@ -92,20 +93,37 @@ const InventoryContext: React.FC = () => {
   return (
     <>
       <Menu>
-        <MenuItem onClick={() => handleClick({ action: 'use' })} label={Locale.ui_use || 'Use'} />
-        <MenuItem onClick={() => handleClick({ action: 'give' })} label={Locale.ui_give || 'Give'} />
-        <MenuItem onClick={() => handleClick({ action: 'drop' })} label={Locale.ui_drop || 'Drop'} />
+        <MenuItem
+          onClick={() => handleClick({ action: 'use' })}
+          label={Locale.ui_use || 'Use'}
+          icon="fas fa-hand-pointer"
+        />
+        <MenuItem
+          onClick={() => handleClick({ action: 'give' })}
+          label={Locale.ui_give || 'Give'}
+          icon="fas fa-hand-holding"
+        />
+        <MenuItem
+          onClick={() => handleClick({ action: 'drop' })}
+          label={Locale.ui_drop || 'Drop'}
+          icon="fas fa-trash"
+        />
         {item && item.metadata?.ammo > 0 && (
-          <MenuItem onClick={() => handleClick({ action: 'removeAmmo' })} label={Locale.ui_remove_ammo} />
+          <MenuItem
+            onClick={() => handleClick({ action: 'removeAmmo' })}
+            label={Locale.ui_remove_ammo}
+            icon="fas fa-eject"
+          />
         )}
         {item && item.metadata?.serial && (
           <MenuItem
             onClick={() => handleClick({ action: 'copy', serial: item.metadata?.serial })}
             label={Locale.ui_copy}
+            icon="fas fa-copy"
           />
         )}
         {item && item.metadata?.components && item.metadata?.components.length > 0 && (
-          <Menu label={Locale.ui_removeattachments}>
+          <Menu label={Locale.ui_removeattachments} icon="fas fa-wrench">
             {item &&
               item.metadata?.components.map((component: string, index: number) => (
                 <MenuItem
@@ -129,6 +147,7 @@ const InventoryContext: React.FC = () => {
                           key={button.index}
                           onClick={() => handleClick({ action: 'custom', id: button.index })}
                           label={button.label}
+                          icon={button.icon || 'fas fa-file-pen'}
                         />
                       ))}
                     </Menu>
@@ -138,6 +157,7 @@ const InventoryContext: React.FC = () => {
                         key={button.index}
                         onClick={() => handleClick({ action: 'custom', id: button.index })}
                         label={button.label}
+                        icon={button.icon || 'fas fa-file-pen'}
                       />
                     ))
                   )}

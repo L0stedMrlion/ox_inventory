@@ -54,7 +54,7 @@ export const ItemNotificationsProvider = ({ children }: { children: React.ReactN
   const queue = useQueue<{
     id: number;
     item: ItemNotificationProps;
-    ref: React.RefObject<HTMLDivElement | null>;
+    ref: React.RefObject<HTMLDivElement>;
   }>();
 
   const add = (item: ItemNotificationProps) => {

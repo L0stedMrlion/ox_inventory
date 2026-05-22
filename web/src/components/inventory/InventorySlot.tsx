@@ -98,10 +98,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
     manager.dispatch({ type: 'dnd-core/END_DRAG' });
   });
 
-  const connectRef = (element: HTMLDivElement | null) => {
-    if (!element) return;
-    drag(drop(element));
-  };
+  const connectRef = (element: HTMLDivElement) => drag(drop(element));
 
   const handleContext = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -204,7 +201,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
                         style={{ color: item.currency === 'money' || !item.currency ? '#2ECC71' : '#E74C3C' }}
                       >
                         <p>
-                          {Locale.$ || '$'}
+                          <i className="fas fa-coins" style={{ fontSize: '0.8em', marginRight: '4px' }}></i>
                           {item.price.toLocaleString('en-us')}
                         </p>
                       </div>

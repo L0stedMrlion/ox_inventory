@@ -13,7 +13,7 @@ const InventoryHotbar: React.FC = () => {
   const items = useAppSelector(selectLeftInventory).items.slice(0, 5);
 
   //stupid fix for timeout
-  const [handle, setHandle] = useState<ReturnType<typeof setTimeout>>();
+  const [handle, setHandle] = useState<NodeJS.Timeout>();
   useNuiEvent('toggleHotbar', () => {
     if (hotbarVisible) {
       setHotbarVisible(false);

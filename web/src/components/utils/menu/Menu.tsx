@@ -49,10 +49,11 @@ interface MenuProps {
   label?: string;
   nested?: boolean;
   children?: React.ReactNode;
+  icon?: string;
 }
 
 export const MenuComponent = React.forwardRef<HTMLButtonElement, MenuProps & React.HTMLProps<HTMLButtonElement>>(
-  ({ children, label, ...props }, forwardedRef) => {
+  ({ children, label, icon, ...props }, forwardedRef) => {
     const menu = useAppSelector((state) => state.contextMenu);
     const [isOpen, setIsOpen] = useState(false);
     const [hasFocusInside, setHasFocusInside] = useState(false);
@@ -192,7 +193,15 @@ export const MenuComponent = React.forwardRef<HTMLButtonElement, MenuProps & Rea
               })
             )}
           >
-            {label}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {icon && (
+                <i
+                  className={icon}
+                  style={{ width: '20px', marginRight: '8px', textAlign: 'center', color: 'rgba(255,255,255,0.7)' }}
+                ></i>
+              )}
+              {label}
+            </div>
             {isNested && (
               <span aria-hidden style={{ marginLeft: 10, fontSize: 10 }}>
                 ▶
@@ -236,12 +245,13 @@ export const MenuComponent = React.forwardRef<HTMLButtonElement, MenuProps & Rea
 interface MenuItemProps {
   label: string;
   disabled?: boolean;
+  icon?: string;
 }
 
 export const MenuItem = React.forwardRef<
   HTMLButtonElement,
   MenuItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ label, disabled, ...props }, forwardedRef) => {
+>(({ label, disabled, icon, ...props }, forwardedRef) => {
   const menu = useContext(MenuContext);
   const item = useListItem({ label: disabled ? null : label });
   const tree = useFloatingTree();
@@ -267,7 +277,15 @@ export const MenuItem = React.forwardRef<
         },
       })}
     >
-      {label}
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        {icon && (
+          <i
+            className={icon}
+            style={{ width: '20px', marginRight: '8px', textAlign: 'center', color: 'rgba(255,255,255,0.7)' }}
+          ></i>
+        )}
+        {label}
+      </div>
     </button>
   );
 });

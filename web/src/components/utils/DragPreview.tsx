@@ -24,10 +24,7 @@ const calculateParentOffset = (monitor: DragLayerMonitor): XYCoord => {
   return subtract(client, source);
 };
 
-export const calculatePointerPosition = (
-  monitor: DragLayerMonitor,
-  childRef: RefObject<Element | null>
-): XYCoord | null => {
+export const calculatePointerPosition = (monitor: DragLayerMonitor, childRef: RefObject<Element>): XYCoord | null => {
   const offset = monitor.getClientOffset();
   if (offset === null) {
     return null;
